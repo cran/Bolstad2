@@ -5,6 +5,7 @@ BayesPois               Bayesian Pois Regression
 bivnormMH               Metropolis Hastings sampling from a Bivariate
                         Normal distribution
 c10ex16.df              Chapter 10 Example 16 data
+chd.df                  Coronary Heart Disease Chapter 8 Example 11
 credInt                 Calculate a credible interval from a
                         numerically specified posterior CDF or from a
                         sample from the posterior

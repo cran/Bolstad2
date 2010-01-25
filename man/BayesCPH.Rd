@@ -23,7 +23,8 @@
   \item{mleMean}{the mean of the matched curvature likelihood}
   \item{mleVar}{the covariance matrix of the matched curvature
     likelihood}
-  \item{startValue}{}
+  \item{startValue}{a vector of starting values for all of the
+    regression coefficients including the intercept}
   \item{randomSeed}{a random seed to use for different chains}
   \item{plots}{Plot the time series and auto correlation functions for
     each of the model coefficients}
