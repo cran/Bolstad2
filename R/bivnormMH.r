@@ -4,18 +4,18 @@ bivnormMH<-function(rho, rho1 = 0.9, sigma = c(1.2, 1.2), steps = 1000, type = '
         stop("rho must be between -1 and 1")
     }
 
-    if(steps<100)
+    if(steps < 100)
         warning("You should really do more than 100 steps")
 
-    target = candidate = matrix(0, nc = 2, nr = steps)
+    target = candidate = matrix(0, ncol = 2, nrow = steps)
 
     if(length(grep('^[Rr]',type))>0){
         type = 'rw'
-    }else if(length(grep('^[Ii]',type))>0){
+    }else if(length(grep('^[Ii]',type)) > 0){
         type = 'ind'
-    }else if(length(grep('^[Bb]',type))>0){
+    }else if(length(grep('^[Bb]',type)) > 0){
         type = 'block'
-    }else if(length(grep('^[Gg]',type))>0){
+    }else if(length(grep('^[Gg]',type)) > 0){
         type = 'gibbs'
     }else{
         stop("Type must be one of rw, ind, block or gibbs")
@@ -87,7 +87,7 @@ bivnormMH<-function(rho, rho1 = 0.9, sigma = c(1.2, 1.2), steps = 1000, type = '
 
         startValue = c(2.0, 1.5)
         x1 = startValue
-        x0 = matrix(rnorm(2*steps, rep(0,2*steps), rep(sigma,steps)),nc = 2)
+        x0 = matrix(rnorm(2*steps, rep(0,2*steps), rep(sigma,steps)),ncol = 2)
 
         x0[,2] = rho1*x0[,1]+sqrt(1-rho1^2)*x0[,2]
 
@@ -124,7 +124,7 @@ bivnormMH<-function(rho, rho1 = 0.9, sigma = c(1.2, 1.2), steps = 1000, type = '
         }
     }else if(type=='block'){
         twosteps = 2*steps
-        target = candidate = matrix(0, nc = 2, nr = twosteps)
+        target = candidate = matrix(0, ncol = 2, nrow = twosteps)
 
         u = runif(twosteps)
 
@@ -191,7 +191,7 @@ bivnormMH<-function(rho, rho1 = 0.9, sigma = c(1.2, 1.2), steps = 1000, type = '
         }
     }else if(type == 'gibbs'){
         twosteps = 2*steps
-        target = candidate = matrix(0, nc = 2, nr = twosteps)
+        target = candidate = matrix(0, ncol = 2, nrow = twosteps)
 
         u = runif(twosteps)
 

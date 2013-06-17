@@ -10,9 +10,9 @@ BayesLogistic = function(y, x, steps = 1000,
     nObs = length(y)
 
     if(is.vector(x))
-        x = as.matrix(x, nc = 1)
+        x = as.matrix(x, ncol = 1)
 
-    nParameters = ncol(x)+1 ## number of covariates + intercept
+    nParameters = ncol(x) + 1 ## number of covariates + intercept
 
     if(!is.null(startValue)){
         if(length(startValue) < nParameters){
@@ -38,7 +38,7 @@ BayesLogistic = function(y, x, steps = 1000,
         ## I have no idea why the diag command doesn't work as it should:
         ## e.g.            Vyinv = diag(Vdiag, nrow = length(Vdiag))
         ## therefore this two-step procedure is needed
-        Vyinv = matrix(0, nr = nObs, nc = nObs)
+        Vyinv = matrix(0, nrow = nObs, ncol = nObs)
         diag(Vyinv) = Vdiag
 
         XtV = Xt%*%Vyinv
@@ -54,7 +54,7 @@ BayesLogistic = function(y, x, steps = 1000,
             Pi = exp(betaX)/(1+exp(betaX))
             Vdiag = Pi*(1-Pi)
             Y = betaX + (y-Pi)/Vdiag
-            Vyinv = matrix(0, nr = nObs, nc = nObs)
+            Vyinv = matrix(0, nrow = nObs, ncol = nObs)
             diag(Vyinv) = Vdiag
 
             XtV = Xt%*%Vyinv
@@ -70,7 +70,7 @@ BayesLogistic = function(y, x, steps = 1000,
     normApproxPosterior = function(){
 
         result = list(postMean = rep(0, nParameters),
-                       postVar = matrix(0, nc = nParameters, nr = nParameters))
+                       postVar = matrix(0, ncol = nParameters, nrow = nParameters))
 
 
 
@@ -105,13 +105,13 @@ BayesLogistic = function(y, x, steps = 1000,
     U = chol(postVar)
     L = t(U)
 
-    candBeta = matrix(rt(steps*nParameters, df = 4), nc = nParameters)
+    candBeta = matrix(rt(steps*nParameters, df = 4), ncol = nParameters)
 
     if(!is.null(startValue))
         candBeta[1,] = startValue
 
     WM2 = candBeta %*% U
-    WM3 = matrix(rep(postMean,rep(steps,nParameters)),nc = nParameters)
+    WM3 = matrix(rep(postMean,rep(steps,nParameters)),ncol = nParameters)
     WM4 = WM2 + WM3
     V2 = cov(WM4)
 
